@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Bandwidth Allocation Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1><i class="fas fa-wifi"></i> Dynamic Bandwidth Allocation Simulator</h1>
+        </header>
+        
+        <div class="container">
+            <div class="card controls">
+                <h2><i class="fas fa-sliders-h"></i> Streaming Controls</h2>
+                <div class="button-group">
+                    <button id="play" class="primary-btn"><i class="fas fa-play"></i> Play Video</button>
+                    <button id="pause" class="primary-btn"><i class="fas fa-pause"></i> Pause</button>
+                    <button id="buffer" class="secondary-btn"><i class="fas fa-exclamation-triangle"></i> Simulate Buffer Event</button>
+                </div>
+                
+                <div class="slider-container">
+                    <label for="network-conditions"><i class="fas fa-network-wired"></i> Network Conditions:</label>
+                    <input type="range" id="network-conditions" min="1" max="10" value="7">
+                    <div class="value-display">
+                        <span>Poor</span>
+                        <span>Excellent</span>
+                    </div>
+                </div>
+                
+                <h3><i class="fas fa-tv"></i> Video Resolution</h3>
+                <div class="resolution-group">
+                    <button class="resolution-btn active" data-resolution="480">480p</button>
+                    <button class="resolution-btn" data-resolution="720">720p</button>
+                    <button class="resolution-btn" data-resolution="1080">1080p</button>
+                    <button class="resolution-btn" data-resolution="auto">Auto</button>
+                </div>
+                
+                <div class="slider-container">
+                    <label for="prediction-aggressiveness"><i class="fas fa-brain"></i> Prediction Algorithm Aggressiveness:</label>
+                    <input type="range" id="prediction-aggressiveness" min="1" max="10" value="5">
+                    <div class="value-display">
+                        <span>Conservative</span>
+                        <span>Aggressive</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card stats">
+                <h2><i class="fas fa-chart-line"></i> Streaming Statistics</h2>
+                <table>
+                    <tr>
+                        <td><i class="fas fa-compress-arrows-alt"></i> Current Resolution:</td>
+                        <td id="current-resolution" class="stat-value">480p</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-tachometer-alt"></i> Available Bandwidth:</td>
+                        <td id="available-bandwidth" class="stat-value">0 Mbps</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrows-alt-v"></i> Required Bandwidth:</td>
+                        <td id="required-bandwidth" class="stat-value">0 Mbps</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-heart"></i> Buffer Health:</td>
+                        <td id="buffer-health" class="stat-value">0%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-hourglass-half"></i> Buffering Events:</td>
+                        <td id="buffer-events" class="stat-value">0</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-exchange-alt"></i> Resolution Switches:</td>
+                        <td id="resolution-switches" class="stat-value">0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="video-container card">
+            <div class="video-player">
+                <iframe id="youtube-player" width="100%" height="100%" 
+                        src="https://www.youtube.com/embed/KHMwhjQrCmo?enablejsapi=1" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>Buffering...</span>
+                </div>
+                <div class="resolution-indicator">480p</div>
+                <div class="video-overlay">Playing: Dynamic Bandwidth Demo</div>
+                <div class="buffer-bar-container">
+                    <div class="buffer-bar"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bandwidth-graph card">
+            <h3><i class="fas fa-chart-area"></i> Bandwidth Monitor</h3>
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="color-indicator" style="background-color: var(--available-bandwidth);"></span>
+                    <span>Available Bandwidth</span>
+                </div>
+                <div class="legend-item">
+                    <span class="color-indicator" style="background-color: var(--predicted-bandwidth);"></span>
+                    <span>Predicted Bandwidth</span>
+                </div>
+                <div class="legend-item">
+                    <span class="color-indicator" style="background-color: var(--required-bandwidth);"></span>
+                    <span>Required for Current Resolution</span>
+                </div>
+            </div>
+            <div class="graph-container" id="graph">
+                <!-- Dynamic bars will be added here -->
+            </div>
+            <div class="graph-labels">
+                <span>15s ago</span>
+                <span>Now</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Dynamic Bandwidth Allocation Simulator</p>
+    </footer>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="script.js"></script>
+</body>
+</html>
